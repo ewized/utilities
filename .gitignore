@@ -1,0 +1,15 @@
+# IntelliJ IDEA
+*.iml
+.idea
+
+# VIM
+*.swp
+*.swap
+*~
+
+# Maven
+target
+*/target
+
+# Project
+dependency-reduced-pom.xml

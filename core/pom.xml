@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.ewized</groupId>
+        <artifactId>utilities</artifactId>
+        <version>1</version>
+    </parent>
+
+    <groupId>com.ewized.utilities</groupId>
+    <artifactId>core</artifactId>
+
+    <build>
+        <defaultGoal>install</defaultGoal>
+        <finalName>${project.name}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+                            <artifactSet>
+                                <includes>
+                                    <include>net.cubespace:Yamler-Core</include>
+                                    <include>com.google.code.gson:gson</include>
+                                </includes>
+                            </artifactSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>repo</id>
+            <url>http://mvnrepository.com/artifact/</url>
+        </repository>
+        <repository>
+            <id>cube-space</id>
+            <url>http://nexus.cube-space.net/content/groups/public/</url>
+        </repository>
+        <repository>
+            <id>projectlombok.org</id>
+            <url>http://projectlombok.org/mavenrepo/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.4</version>
+        </dependency>
+        <dependency>
+            <groupId>net.cubespace</groupId>
+            <artifactId>Yamler-Core</artifactId>
+            <version>1.2.7-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+</project>

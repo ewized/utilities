@@ -1,0 +1,6 @@
+name: Utilities
+version: ${pom.version}
+author: ewized
+main: ${plugin.mainClass}
+load: STARTUP
+depend: []
