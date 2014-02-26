@@ -42,7 +42,7 @@ public class MessageUtil extends com.ewized.utilities.core.util.MessageUtil {
      * @return The translated message.
      */
     public static BaseComponent[] makeMessage(String message) {
-        return TextComponent.fromLegacyText(message);
+        return TextComponent.fromLegacyText(replaceColors(message));
     }
 
     /**

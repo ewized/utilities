@@ -29,4 +29,13 @@ public class MessageUtil {
         return message.replaceAll(ChatColor.COLOR_CHAR + "[0-9a-fA-Fk-rK-R]", "&%1");
     }
 
+    /**
+     * Check is the message could be a raw message
+     * @param message Message to check.
+     * @return true|false
+     */
+    public static boolean isRawMessage(String message) {
+        return message.startsWith("{text:") || message.startsWith("{text:", 1);
+    }
+
 }
