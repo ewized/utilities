@@ -38,4 +38,12 @@ public class MessageUtil {
         return message.startsWith("{text:") || message.startsWith("{text:", 1);
     }
 
+    /**
+     * Replace end of line symbol with a char.
+     * @param message The message to be translated.
+     * @return The translated message.
+     */
+    public static String endOfLine(String message) {
+        return message.replaceAll("\\n", "\n");
+    }
 }

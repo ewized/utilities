@@ -65,4 +65,50 @@ public class MessageUtil extends com.ewized.utilities.core.util.MessageUtil {
         }
     }
 
+    /**
+     * Merge two BaseComponents together.
+     * @param first The first BaseComponent
+     * @param second The second BaseComponet
+     * @return The merged
+     */
+    public static BaseComponent[] merge(BaseComponent[] first, BaseComponent[] second) {
+        BaseComponent[] merged = new BaseComponent[first.length + second.length];
+
+        // Merge the components.
+        for (int i = 0; i < first.length + second.length; i++)
+            merged[i] = i < first.length ? first[i] : second[i - first.length];
+
+        return merged;
+    }
+
+    /**
+     * Merge two BaseComponents together.
+     * @param first The first String
+     * @param second The second String
+     * @return The merged
+     */
+    public static BaseComponent[] merge(String first, String second) {
+        return merge(makeMessage(first), makeMessage(second));
+    }
+
+    /**
+     * Merge two BaseComponents together.
+     * @param first The first String
+     * @param second The second String
+     * @return The merged
+     */
+    public static BaseComponent[] merge(BaseComponent[] first, String second) {
+        return merge(first, makeMessage(second));
+    }
+
+    /**
+     * Merge two BaseComponents together.
+     * @param first The first String
+     * @param second The second String
+     * @return The merged
+     */
+    public static BaseComponent[] merge(String first, BaseComponent[] second) {
+        return merge(makeMessage(first), second);
+    }
+
 }
