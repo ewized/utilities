@@ -1,6 +1,5 @@
 package com.ewized.utilities.bukkit.util;
 
-import com.ewized.utilities.bukkit.Utilities;
 import com.sk89q.bukkit.util.BukkitCommandsManager;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
@@ -11,7 +10,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class CommandWrapper extends JavaPlugin {
     private CommandsManager commands;
 
-    public CommandWrapper(JavaPlugin plugin, Class<?> clazz) {
+    public CommandWrapper(final JavaPlugin plugin, Class<?> clazz) {
         commands = new BukkitCommandsManager();
         new CommandsManagerRegistration(plugin, commands).register(clazz);
     }
