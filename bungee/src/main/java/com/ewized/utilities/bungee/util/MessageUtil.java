@@ -6,6 +6,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.chat.ComponentSerializer;
 
+@SuppressWarnings("unused")
 public class MessageUtil extends com.ewized.utilities.core.util.MessageUtil {
 
     /**

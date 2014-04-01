@@ -8,6 +8,7 @@ import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.plugin.Plugin;
 
+@SuppressWarnings("unused")
 public class CommandWrapper implements CommandExecutor<CommandSender> {
     private BungeeCommandsManager commands;
 

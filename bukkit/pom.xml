@@ -49,6 +49,7 @@
                             <artifactSet>
                                 <includes>
                                     <include>com.sk89q:command-framework-bukkit</include>
+                                    <include>com.comphenix.protocol:ProtocolLib</include>
                                     <include>com.ewized.utilities:core</include>
                                 </includes>
                             </artifactSet>

@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 
+@SuppressWarnings("unused")
 public class LocationUtil {
     /**
      * Create a location
@@ -36,9 +37,9 @@ public class LocationUtil {
      * @return The centered location.
      */
     public static Location center(Location location) {
-        location.setX(Math.abs(location.getX()) + 0.5);
-        location.setY(Math.abs(location.getY()) + 0.5);
-        location.setZ(Math.abs(location.getZ()) + 0.5);
+        location.setX(location.getX() + 0.5);
+        location.setY(location.getY() + 0.5);
+        location.setZ(location.getZ() + 0.5);
         return location;
     }
 

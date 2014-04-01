@@ -2,6 +2,7 @@ package com.ewized.utilities.core.util;
 
 import java.sql.*;
 
+@SuppressWarnings("unused")
 public class Database {
     private static Database inst = null;
     private Connection connection;

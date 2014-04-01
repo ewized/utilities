@@ -3,6 +3,8 @@ package com.ewized.utilities.bukkit.util;
 import com.google.gson.Gson;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -16,14 +18,14 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 
-@SuppressWarnings("all")
+@SuppressWarnings("unused")
 public class ItemUtil {
     /**
      * Create a book with the data inside
      * @param title The title.
      * @param author The author.
      * @param pages The pages' content.
-     * @return
+     * @return The book
      */
     public static ItemStack createBook(String title, String author, List<String> pages) {
         ItemStack item = new ItemStack(Material.WRITTEN_BOOK);
@@ -121,8 +123,9 @@ public class ItemUtil {
             // Set the item's color if leather armor.
             if (nbt.getDisplay().getColor() != null) {
                 if (itemMeta instanceof LeatherArmorMeta) {
-                    DyeColor dyeColor = DyeColor.valueOf(nbt.getDisplay().getColor().toUpperCase());
-                    ((LeatherArmorMeta) itemMeta).setColor(BukkitUtil.dyeColorToColor(dyeColor));
+                    ChatColor chatColor = ChatColor.valueOf(nbt.getDisplay().getColor().toUpperCase());
+                    Color color = BukkitUtil.dyeColorToColor(BukkitUtil.chatColorToDyeColor(chatColor));
+                    ((LeatherArmorMeta) itemMeta).setColor(color);
                 }
             }
         }
@@ -141,11 +144,11 @@ public class ItemUtil {
         // Set the item's enchantment
         if (nbt.getEnchantments() != null) {
             for (Nbt.Enchantments enchantment: nbt.getEnchantments()) {
-                // The true is forcing the item to have enchments even if the items can't have it.
+                // The true is forcing the item to have enchantments even if the items can't have it.
                 itemMeta.addEnchant(
-                        Enchantment.getByName(enchantment.getName().toUpperCase()),
-                        enchantment.getLevel(),
-                        true
+                    Enchantment.getByName(enchantment.getName().toUpperCase()),
+                    enchantment.getLevel(),
+                    true
                 );
             }
         }

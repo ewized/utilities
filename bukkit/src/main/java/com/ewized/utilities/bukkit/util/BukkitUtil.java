@@ -1,10 +1,12 @@
 package com.ewized.utilities.bukkit.util;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 
 import java.util.HashMap;
 
+@SuppressWarnings("unused")
 public class BukkitUtil {
     /** Color to DyeColor Map. */
     public static final HashMap<Color, DyeColor> colorToDyeColorMap = new HashMap<Color, DyeColor>() {{
@@ -26,25 +28,44 @@ public class BukkitUtil {
         put(Color.WHITE, DyeColor.WHITE);
         put(Color.TEAL, DyeColor.LIGHT_BLUE);
     }};
+
     /** DyeColor to Color Map. */
     public static final HashMap<DyeColor, Color> dyeColorToColorMap = new HashMap<DyeColor, Color>() {{
         put(DyeColor.LIGHT_BLUE, Color.AQUA);
         put(DyeColor.BLACK, Color.BLACK);
-        put(DyeColor.LIGHT_BLUE, Color.BLUE);
         put(DyeColor.PINK, Color.FUCHSIA);
         put(DyeColor.GRAY, Color.GRAY);
         put(DyeColor.GREEN, Color.GREEN);
         put(DyeColor.LIME, Color.LIME);
         put(DyeColor.MAGENTA, Color.MAROON);
-        put(DyeColor.BLUE, Color.NAVY);
-        put(DyeColor.GREEN, Color.OLIVE);
+        put(DyeColor.BLUE, Color.BLUE);
         put(DyeColor.ORANGE, Color.ORANGE);
         put(DyeColor.PURPLE, Color.PURPLE);
         put(DyeColor.RED, Color.RED);
         put(DyeColor.SILVER, Color.SILVER);
         put(DyeColor.YELLOW, Color.YELLOW);
         put(DyeColor.WHITE, Color.WHITE);
-        put(DyeColor.LIGHT_BLUE, Color.TEAL);
+        put(DyeColor.CYAN, Color.TEAL);
+    }};
+
+    /** ChatColor to DyeColor. */
+    public static final HashMap<ChatColor, DyeColor> chatColorToDyeColorMap = new HashMap<ChatColor, DyeColor>() {{
+        put(ChatColor.AQUA, DyeColor.LIGHT_BLUE);
+        put(ChatColor.BLACK, DyeColor.BLACK);
+        put(ChatColor.BLUE, DyeColor.LIGHT_BLUE);
+        put(ChatColor.DARK_AQUA, DyeColor.CYAN);
+        put(ChatColor.DARK_BLUE, DyeColor.BLUE);
+        put(ChatColor.DARK_GRAY, DyeColor.GRAY);
+        put(ChatColor.DARK_GREEN, DyeColor.GREEN);
+        put(ChatColor.DARK_PURPLE, DyeColor.PURPLE);
+        put(ChatColor.DARK_RED, DyeColor.RED);
+        put(ChatColor.GOLD, DyeColor.ORANGE);
+        put(ChatColor.GRAY, DyeColor.SILVER);
+        put(ChatColor.GREEN, DyeColor.LIME);
+        put(ChatColor.LIGHT_PURPLE, DyeColor.MAGENTA);
+        put(ChatColor.RED, DyeColor.RED);
+        put(ChatColor.WHITE, DyeColor.WHITE);
+        put(ChatColor.YELLOW, DyeColor.YELLOW);
     }};
 
     /**
@@ -53,7 +74,8 @@ public class BukkitUtil {
      * @return The Color.
      */
     public static Color dyeColorToColor(DyeColor dyeColor) {
-        return dyeColorToColorMap.get(dyeColor);
+        Color color = dyeColorToColorMap.get(dyeColor);
+        return color == null ? Color.WHITE : color;
     }
 
     /**
@@ -62,7 +84,17 @@ public class BukkitUtil {
      * @return The DyeColor.
      */
     public static DyeColor colorToDyeColor(Color color) {
-        return colorToDyeColorMap.get(color);
+        DyeColor dyeColor = colorToDyeColorMap.get(color);
+        return dyeColor == null ? DyeColor.WHITE : dyeColor;
     }
 
+    /**
+     * Get the  for the Color match.
+     * @param color The Color.
+     * @return The DyeColor.
+     */
+    public static DyeColor chatColorToDyeColor(ChatColor color) {
+        DyeColor dyeColor = chatColorToDyeColorMap.get(color);
+        return dyeColor == null ? DyeColor.WHITE : dyeColor;
+    }
 }

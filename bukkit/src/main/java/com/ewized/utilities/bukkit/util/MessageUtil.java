@@ -3,6 +3,7 @@ package com.ewized.utilities.bukkit.util;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+@SuppressWarnings("unused")
 public class MessageUtil extends com.ewized.utilities.core.util.MessageUtil {
 
     /**

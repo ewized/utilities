@@ -7,16 +7,17 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CommandWrapper extends JavaPlugin {
+@SuppressWarnings("unused")
+public class CommandWrapper<T> {
+    private T t;
     private CommandsManager commands;
 
-    public CommandWrapper(final JavaPlugin plugin, Class<?> clazz) {
+    public CommandWrapper(final T t, Class<?> clazz) {
         commands = new BukkitCommandsManager();
-        new CommandsManagerRegistration(plugin, commands).register(clazz);
+        new CommandsManagerRegistration((JavaPlugin)t, commands).register(clazz);
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandName, String[] args) {
         String msg = null;
         try {
