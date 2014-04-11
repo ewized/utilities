@@ -7,6 +7,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SuppressWarnings("unused")
 public class CommandWrapper<T> {
     //private T t;
@@ -19,29 +22,34 @@ public class CommandWrapper<T> {
 
     @SuppressWarnings("unchecked")
     public boolean onCommand(CommandSender sender, Command cmd, String commandName, String[] args) {
-        String msg = null;
+        List<String> msg = new ArrayList<>();
         try {
             commands.execute(cmd.getName(), args, sender, sender);
         } catch (CommandPermissionsException e) {
-            msg = MessageUtil.replaceColors("&cYou don't have permission to use this command.");
+            msg.add(MessageUtil.replaceColors("&cYou don't have permission to use this command."));
         } catch (MissingNestedCommandException e) {
-            msg = MessageUtil.replaceColors("&c" + e.getUsage());
+            msg.add(MessageUtil.replaceColors("&6Usage&7: &c" + e.getUsage()));
         } catch (CommandUsageException e) {
-            msg = MessageUtil.replaceColors("&c" + e.getMessage());
-            msg += MessageUtil.replaceColors(" &6Usage&7: &c" + e.getUsage());
+            msg.add(MessageUtil.replaceColors("&c" + e.getMessage()));
+            msg.add(MessageUtil.replaceColors("&6Usage&7: &c" + e.getUsage()));
         } catch (WrappedCommandException e) {
             if (e.getCause() instanceof NumberFormatException) {
-                msg = MessageUtil.replaceColors("&cNumber expected, string received instead.");
+                msg.add(MessageUtil.replaceColors("&cNumber expected, string received instead."));
             }
             else {
-                msg = MessageUtil.replaceColors("&cAn error has occurred. See console.");
+                msg.add(MessageUtil.replaceColors("&cAn error has occurred. See console."));
                 e.printStackTrace();
             }
         } catch (CommandException e) {
-            msg = MessageUtil.replaceColors("&c" + e.getMessage());
+            msg.add(MessageUtil.replaceColors("&c" + e.getMessage()));
         } finally {
-            if (msg != null)
-                sender.sendMessage(" &7[&e⚠&7] " + msg);
+            if (!msg.isEmpty()) {
+                boolean first = true;
+                for (String line : msg) {
+                    sender.sendMessage((first ? " &7[&e⚠&7] " : "") + line);
+                    first = false;
+                }
+            }
         }
 
         return true;
