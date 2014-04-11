@@ -22,6 +22,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@SuppressWarnings("unused")
 public class Pinger {
     private InetSocketAddress host;
     private int timeout = 500;

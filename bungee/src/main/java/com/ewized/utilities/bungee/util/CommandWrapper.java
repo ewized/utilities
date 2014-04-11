@@ -15,9 +15,9 @@ public class CommandWrapper implements CommandExecutor<CommandSender> {
     public CommandWrapper(Plugin plugin, Class<?> clazz) {
         commands = new BungeeCommandsManager();
         new CommandRegistration(
-                plugin,
-                plugin.getProxy().getPluginManager(),
-                commands, this
+            plugin,
+            plugin.getProxy().getPluginManager(),
+            commands, this
         ).register(clazz);
     }
 
@@ -27,12 +27,11 @@ public class CommandWrapper implements CommandExecutor<CommandSender> {
         try {
             commands.execute(commandName, args, sender, sender);
         } catch (CommandPermissionsException e) {
-            msg = MessageUtil.makeMessage("&cYou don't have permission.");
+            msg = MessageUtil.makeMessage(" &7[&e⚠&7] &cYou don't have permission.");
         } catch (MissingNestedCommandException e) {
-            msg = MessageUtil.makeMessage("&c" + e.getUsage());
+            msg = MessageUtil.makeMessage(" &7[&e⚠&7] &c" + e.getUsage());
         } catch (CommandUsageException e) {
-            msg = MessageUtil.makeMessage("&c" + e.getMessage());
-            msg = MessageUtil.makeMessage("&c" + e.getUsage());
+            msg = MessageUtil.merge("&c" + e.getMessage(), " &6Usage&7: &c" + e.getUsage());
         } catch (WrappedCommandException e) {
             if (e.getCause() instanceof NumberFormatException) {
                 msg = MessageUtil.makeMessage("&cNumber expected, string received instead.");
@@ -44,8 +43,9 @@ public class CommandWrapper implements CommandExecutor<CommandSender> {
         } catch (CommandException e) {
             msg = MessageUtil.makeMessage("&c" + e.getMessage());
         } finally {
-            if (msg != null)
-                sender.sendMessage(msg);
+            if (msg != null) {
+                sender.sendMessage(MessageUtil.merge(" &7[&e⚠&7] ", msg));
+            }
         }
     }
 }

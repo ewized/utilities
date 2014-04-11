@@ -1,5 +1,6 @@
 package com.ewized.utilities.core.util;
 
+@SuppressWarnings("unused")
 public class MessageUtil {
 
     /**

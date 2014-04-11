@@ -9,7 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 @SuppressWarnings("unused")
 public class CommandWrapper<T> {
-    private T t;
+    //private T t;
     private CommandsManager commands;
 
     public CommandWrapper(final T t, Class<?> clazz) {
@@ -23,12 +23,12 @@ public class CommandWrapper<T> {
         try {
             commands.execute(cmd.getName(), args, sender, sender);
         } catch (CommandPermissionsException e) {
-            msg = MessageUtil.replaceColors("&cYou don't have permission.");
+            msg = MessageUtil.replaceColors("&cYou don't have permission to use this command.");
         } catch (MissingNestedCommandException e) {
             msg = MessageUtil.replaceColors("&c" + e.getUsage());
         } catch (CommandUsageException e) {
             msg = MessageUtil.replaceColors("&c" + e.getMessage());
-            msg = MessageUtil.replaceColors("&c" + e.getUsage());
+            msg += MessageUtil.replaceColors(" &6Usage&7: &c" + e.getUsage());
         } catch (WrappedCommandException e) {
             if (e.getCause() instanceof NumberFormatException) {
                 msg = MessageUtil.replaceColors("&cNumber expected, string received instead.");
@@ -41,7 +41,7 @@ public class CommandWrapper<T> {
             msg = MessageUtil.replaceColors("&c" + e.getMessage());
         } finally {
             if (msg != null)
-                sender.sendMessage(msg);
+                sender.sendMessage(" &7[&e⚠&7] " + msg);
         }
 
         return true;

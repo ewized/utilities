@@ -37,9 +37,9 @@ public class LocationUtil {
      * @return The centered location.
      */
     public static Location center(Location location) {
-        location.setX(location.getX() + 0.5);
-        location.setY(location.getY() + 0.5);
-        location.setZ(location.getZ() + 0.5);
+        location.setX((int)location.getX() + 0.5);
+        location.setY((int)location.getY() + 0.5);
+        location.setZ((int)location.getZ() + 0.5);
         return location;
     }
 

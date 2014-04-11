@@ -52,7 +52,7 @@ public class BukkitUtil {
     public static final HashMap<ChatColor, DyeColor> chatColorToDyeColorMap = new HashMap<ChatColor, DyeColor>() {{
         put(ChatColor.AQUA, DyeColor.LIGHT_BLUE);
         put(ChatColor.BLACK, DyeColor.BLACK);
-        put(ChatColor.BLUE, DyeColor.LIGHT_BLUE);
+        put(ChatColor.BLUE, DyeColor.BLUE);
         put(ChatColor.DARK_AQUA, DyeColor.CYAN);
         put(ChatColor.DARK_BLUE, DyeColor.BLUE);
         put(ChatColor.DARK_GRAY, DyeColor.GRAY);
@@ -96,5 +96,14 @@ public class BukkitUtil {
     public static DyeColor chatColorToDyeColor(ChatColor color) {
         DyeColor dyeColor = chatColorToDyeColorMap.get(color);
         return dyeColor == null ? DyeColor.WHITE : dyeColor;
+    }
+
+    /**
+     * Gets the multiples of 9 for inventories.
+     * @param size The size that will do math to get the multiple of 9.
+     * @return the base size of the inventory.
+     */
+    public static int invBase(int size) {
+        return (size % 9 == 0) ? (size/9)*9 : (1+(size/9))*9;
     }
 }
