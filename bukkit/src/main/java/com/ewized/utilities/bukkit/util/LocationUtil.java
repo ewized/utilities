@@ -64,10 +64,10 @@ public class LocationUtil {
     public static Location parseLocation(World world, String loc, String regex) {
         String[] cords = loc.split(regex);
         return create(
-                world,
-                Double.valueOf(cords[0]),
-                Double.valueOf(cords[1]),
-                Double.valueOf(cords[2])
+            world,
+            Double.valueOf(cords[0]),
+            Double.valueOf(cords[1]),
+            Double.valueOf(cords[2])
         );
     }
 
