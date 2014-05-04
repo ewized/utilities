@@ -1,8 +1,6 @@
 package com.ewized.utilities.bungee.util;
 
-import com.sk89q.bungee.util.BungeeCommandsManager;
-import com.sk89q.bungee.util.CommandExecutor;
-import com.sk89q.bungee.util.CommandRegistration;
+import com.sk89q.bungee.util.*;
 import com.sk89q.minecraft.util.commands.*;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.chat.BaseComponent;

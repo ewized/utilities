@@ -1,7 +1,7 @@
 package com.ewized.utilities.core.locale;
 
-import com.ewized.utilities.core.util.locale.*;
-import junit.framework.Assert;
+import com.ewized.utilities.core.util.locale.LocaleManager;
+import com.ewized.utilities.core.util.locale.LocaleUtil;
 import lombok.extern.java.Log;
 
 import java.util.Properties;

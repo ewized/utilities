@@ -3,6 +3,7 @@ package com.ewized.utilities.bukkit.util;
 import com.ewized.utilities.core.util.locale.LocaleManager;
 import com.ewized.utilities.core.util.locale.LocaleUtil;
 import org.bukkit.entity.Player;
+
 import static com.ewized.utilities.bukkit.util.MessageUtil.replaceColors;
 
 @SuppressWarnings("unused")

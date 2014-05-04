@@ -1,12 +1,13 @@
 package com.ewized.utilities.core.util.locale;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import lombok.*;
+import lombok.Getter;
 import lombok.extern.java.Log;
 
 import java.io.*;
 import java.net.URL;
 import java.util.*;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * This abstract class is here for another class to implement

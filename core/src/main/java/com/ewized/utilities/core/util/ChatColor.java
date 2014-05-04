@@ -1,9 +1,10 @@
 package com.ewized.utilities.core.util;
 
+import lombok.Getter;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
-import lombok.Getter;
 
 /** Simplistic enumeration of all supported color values. */
 public enum ChatColor {
