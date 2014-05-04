@@ -11,7 +11,7 @@
     <parent>
         <groupId>com.ewized</groupId>
         <artifactId>utilities</artifactId>
-        <version>1.1</version>
+        <version>1.2-SNAPSHOT</version>
     </parent>
 
     <groupId>com.ewized.utilities</groupId>
@@ -91,11 +91,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.ewized.utilities</groupId>
-            <artifactId>core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.sk89q</groupId>
             <artifactId>command-framework-bukkit</artifactId>
             <version>0.5-SNAPSHOT</version>
@@ -104,6 +99,11 @@
             <groupId>org.bukkit</groupId>
             <artifactId>bukkit</artifactId>
             <version>LATEST</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ewized.utilities</groupId>
+            <artifactId>core</artifactId>
+            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

@@ -4,6 +4,16 @@ package com.ewized.utilities.core.util;
 public class MessageUtil {
 
     /**
+     * Creates a message with colors and allowed for formatted.
+     * @param message The message to create.
+     * @param args The optional args to format the message.
+     * @return The message all prettied and formatted.
+     */
+    public static String message(String message, Object... args) {
+        return String.format(replaceColors(message), args);
+    }
+
+    /**
      * Replace color codes with minecraft colors.
      * @param message The message to be translated.
      * @return The translated message.
