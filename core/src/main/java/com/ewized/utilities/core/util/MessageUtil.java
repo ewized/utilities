@@ -10,7 +10,7 @@ public class MessageUtil {
      * @return The message all prettied and formatted.
      */
     public static String message(String message, Object... args) {
-        return String.format(replaceColors(message), args);
+        return replaceColors(String.format(message, args));
     }
 
     /**
