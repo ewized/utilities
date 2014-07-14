@@ -21,7 +21,7 @@ public abstract class LocaleManager {
     @Getter
     private Map<String, Properties> locales = new ConcurrentHashMap<>();
     @Getter
-    private final Class clazz;
+    protected final Class clazz;
     protected static final String LOCALE_PATH = "/locales/";
 
     /**
