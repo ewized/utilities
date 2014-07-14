@@ -4,7 +4,7 @@ import com.ewized.utilities.core.util.locale.LocaleManager;
 
 public class MessageManager extends LocaleManager {
     private static MessageManager inst;
-    private String[] codes = {"en_US", "en_PT", "pt_PT", "pt_BR"};
+    private static String[] codes = {"en_US", "en_PT", "pt_PT", "pt_BR"};
 
     private MessageManager() {
         super(MessageManager.class);
@@ -20,7 +20,7 @@ public class MessageManager extends LocaleManager {
 
     @Override
     protected void loadLocales(String path) {
-        for (String locale : new String[] {"en_US", "en_PT", "pt_PT", "pt_BR"}) {
+        for (String locale : codes) {
             loadLocale(locale, clazz.getResourceAsStream(LOCALE_PATH + locale + ".properties"));
         }
     }
