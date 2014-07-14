@@ -1,6 +1,8 @@
 package com.ewized.utilities.bukkit.util;
 
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
+import org.bukkit.DyeColor;
 
 import java.util.HashMap;
 

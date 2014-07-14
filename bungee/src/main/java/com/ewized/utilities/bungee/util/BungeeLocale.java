@@ -4,8 +4,6 @@ import com.ewized.utilities.core.util.locale.LocaleUtil;
 import com.ewized.utilities.core.util.locale.LocaleWrapper;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 @SuppressWarnings("unused")
 public abstract class BungeeLocale extends LocaleWrapper implements LocaleUtil {
     private ProxiedPlayer player;

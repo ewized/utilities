@@ -105,7 +105,6 @@ public class BungeePlugin extends Plugin implements CommandExecutor<CommandSende
     /** Logs a debug message to the console */
     public static void debug(String message, Object... args) {
         get().log.debug(message, args);
-
     }
 
     /** Print out the stack trace */

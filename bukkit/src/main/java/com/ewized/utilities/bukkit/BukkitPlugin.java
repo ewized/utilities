@@ -7,8 +7,6 @@ import com.ewized.utilities.core.util.LogUtil;
 import com.sk89q.bukkit.util.BukkitCommandsManager;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.bukkit.command.Command;
@@ -63,7 +61,6 @@ public class BukkitPlugin extends JavaPlugin {
 
         BukkitLocale locale = new BukkitLocale(sender instanceof Player ? (Player) sender : null) {{
             localeManager = MessageManager.get();
-            locale = DEFAULT_LOCALE; // TODO Add real locale
         }};
 
         try {
@@ -108,7 +105,6 @@ public class BukkitPlugin extends JavaPlugin {
     /** Logs a debug message to the console */
     public static void debug(String message, Object... args) {
         get().log.debug(message, args);
-
     }
 
     /** Print out the stack trace */

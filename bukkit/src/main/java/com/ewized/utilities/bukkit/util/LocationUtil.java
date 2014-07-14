@@ -1,6 +1,8 @@
 package com.ewized.utilities.bukkit.util;
 
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
 
 @SuppressWarnings("unused")

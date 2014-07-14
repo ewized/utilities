@@ -1,6 +1,8 @@
 package com.ewized.utilities.core.util;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

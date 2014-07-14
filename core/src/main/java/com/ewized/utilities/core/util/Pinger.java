@@ -1,7 +1,9 @@
 package com.ewized.utilities.core.util;
 
 import com.google.gson.Gson;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.*;
 import java.net.InetSocketAddress;
