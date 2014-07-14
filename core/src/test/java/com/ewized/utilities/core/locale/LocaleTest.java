@@ -16,7 +16,7 @@ public class LocaleTest {
 
         for (Properties a : manager.getLocales().values()) {
             LocaleUtil locale = (key, args) -> String.format(a.getProperty(key), args);
-            log.info(locale.translate("how.are.you"));
+            log.info(locale.get("how.are.you"));
         }
     }
 }

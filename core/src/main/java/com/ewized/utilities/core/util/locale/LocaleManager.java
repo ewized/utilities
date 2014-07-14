@@ -4,8 +4,10 @@ import lombok.Getter;
 import lombok.extern.java.Log;
 
 import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -17,10 +19,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Log
 public abstract class LocaleManager {
     @Getter
-    private Map<String, Properties> locales = new LinkedHashMap<>();
+    private Map<String, Properties> locales = new ConcurrentHashMap<>();
     @Getter
     private final Class clazz;
-    private final String LOCALE_PATH = "/locales/";
+    protected static final String LOCALE_PATH = "/locales/";
 
     /**
      * Create a new instance of LocaleManager with the base class to use
@@ -41,14 +43,12 @@ public abstract class LocaleManager {
      * @param clazz The class to be used.
      */
     protected LocaleManager(Class clazz) {
-        this.clazz = clazz;
-
-        // Run the loader with the default path
-        loadLocales(LOCALE_PATH);
+        this(clazz, LOCALE_PATH);
     }
 
     /** The cycle to grab all locale properties in one swoop. */
-    private void loadLocales(String path) {
+    @SuppressWarnings("ConstantConditions")
+    protected void loadLocales(String path) {
         try {
             URL url = checkNotNull(clazz.getResource(path));
 
@@ -56,12 +56,9 @@ public abstract class LocaleManager {
             for (File file : dir.listFiles()) {
                 String[] l = file.getName().split("\\.");
 
-                loadLocale(
-                    l[0],
-                    clazz.getResourceAsStream(path + file.getName())
-                );
+                loadLocale(l[0], clazz.getResourceAsStream(path + file.getName()));
             }
-        } catch (Exception e) {
+        } catch (URISyntaxException | NullPointerException e) {
             log.warning(e.getMessage());
         }
     }
@@ -70,7 +67,7 @@ public abstract class LocaleManager {
      * Load a resource to be used, in the locale system.
      * @param key The name of the.
      */
-    public void loadLocale(String key, InputStream locale) {
+    protected void loadLocale(String key, InputStream locale) {
         Properties file = new Properties();
         try {
             file.load(locale);
