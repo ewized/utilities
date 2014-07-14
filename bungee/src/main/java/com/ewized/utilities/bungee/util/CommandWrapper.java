@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
+@Deprecated
 public class CommandWrapper implements CommandExecutor<CommandSender> {
     private BungeeCommandsManager commands;
 

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("unused")
+@Deprecated
 public class CommandWrapper<T> {
     //private T t;
     private CommandsManager commands;
