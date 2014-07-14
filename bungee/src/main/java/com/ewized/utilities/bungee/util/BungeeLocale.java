@@ -13,13 +13,11 @@ public abstract class BungeeLocale extends LocaleWrapper implements LocaleUtil {
     /** Start creating locales for the specific player's locale */
     public BungeeLocale(ProxiedPlayer player) {
         this.player = player;
-        this.locale = player.getLocale().toString();
+        this.locale = player == null ? DEFAULT_LOCALE : player.getLocale() + "";
     }
 
     /** Translate to the specific locale with formatting */
     public String get(String key, Object... args) {
-        checkNotNull(player);
-
         return super.get(key, args);
     }
 }

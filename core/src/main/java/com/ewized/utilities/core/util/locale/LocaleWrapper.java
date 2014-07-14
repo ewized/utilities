@@ -14,6 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * this player is loaded.
  */
 public abstract class LocaleWrapper implements LocaleUtil {
+    public static final String DEFAULT_LOCALE = "en_US";
     protected LocaleManager localeManager;
     @Getter
     protected String locale;
@@ -24,7 +25,7 @@ public abstract class LocaleWrapper implements LocaleUtil {
         checkNotNull(localeManager);
 
         if (!localeManager.isLocale(locale)) {
-            return key + "|" + Joiner.on(", ").join(args);
+            return "(" + locale + ") " + key + " " + Joiner.on(", ").join(args);
         }
 
         return message(localeManager.getLocale(locale).getProperty(key, key), args);
