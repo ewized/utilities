@@ -30,10 +30,10 @@ public class BungeePlugin extends Plugin implements CommandExecutor<CommandSende
     private static BungeePlugin inst;
     private final BungeeCommandsManager commands = new BungeeCommandsManager();
     public boolean debug = Boolean.parseBoolean(System.getProperty("debug"));
-    protected final LogUtil log = new LogUtil(getLogger(), debug);
+    public final LogUtil log = new LogUtil(getLogger(), debug);
 
     /** Get the instance of this plugin */
-    public static BungeePlugin get() {
+    private static BungeePlugin get() {
         if (inst == null) {
             inst = new BungeePlugin();
         }
@@ -48,8 +48,6 @@ public class BungeePlugin extends Plugin implements CommandExecutor<CommandSende
     }
 
     // Command Stuff //
-
-
 
     /** Register a command for this plugin */
     public void registerCommand(Class<?> commandClass) {

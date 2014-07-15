@@ -31,10 +31,10 @@ public class BukkitPlugin extends JavaPlugin {
     @Getter
     public boolean debug = Boolean.parseBoolean(System.getProperty("debug"));
     @Getter
-    protected final LogUtil log = new LogUtil(getLogger(), debug);
+    public final LogUtil log = new LogUtil(getLogger(), debug);
 
     /** Get the instance of this plugin */
-    public static BukkitPlugin get() {
+    private static BukkitPlugin get() {
         if (inst == null) {
             inst = new BukkitPlugin();
         }
