@@ -3,14 +3,14 @@ package com.ewized.utilities.core.util.locale;
 import lombok.Getter;
 import lombok.extern.java.Log;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.Charset;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
+import com.google.common.base.Charsets;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -73,7 +73,7 @@ public abstract class LocaleManager {
     protected void loadLocale(String key, InputStream locale) {
         Properties file = new Properties();
         try {
-            file.load(locale);
+            file.load(new InputStreamReader(locale, Charsets.UTF_8));
             locales.put(key, file);
         } catch (IOException e) {
             log.warning(e.getMessage());
