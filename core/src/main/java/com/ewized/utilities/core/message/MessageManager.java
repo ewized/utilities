@@ -4,6 +4,7 @@ import com.ewized.utilities.core.util.locale.LocaleManager;
 
 public class MessageManager extends LocaleManager {
     private static MessageManager inst;
+    protected static final String LOCALE_PATH = "/com/ewized/utilities/locales/";
     private static String[] codes = {"en_US", "en_PT", "pt_PT", "pt_BR"};
 
     private MessageManager() {
