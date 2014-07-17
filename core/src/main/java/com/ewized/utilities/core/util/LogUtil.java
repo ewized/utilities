@@ -1,27 +1,28 @@
 package com.ewized.utilities.core.util;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.Data;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
 @SuppressWarnings("unused")
 public class LogUtil {
-    protected Logger log = null;
-    @Setter
-    protected boolean debug = false;
+    protected Logger logger;
+    protected boolean debug;
+
+    public LogUtil() {
+        this(Logger.getLogger(LogUtil.class.getName()), Boolean.parseBoolean(System.getProperty("debug")));
+    }
+
+    public LogUtil(Logger logger) {
+        this(logger, false);
+    }
 
     /** Logs a message to the console */
     public void log(String message, Object... args) {
-        checkNotNull(log);
-
-        log.log(Level.INFO, String.format(MessageUtil.stripColors(message), args));
+        logger.info(String.format(MessageUtil.stripColors(message), args));
     }
 
     /** Logs a debug message to the console */
