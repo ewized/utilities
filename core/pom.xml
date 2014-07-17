@@ -30,6 +30,7 @@
                         <configuration>
                             <artifactSet>
                                 <includes>
+                                    <include>com.sk89q:command-framework-core</include>
                                     <include>net.cubespace:Yamler-Core</include>
                                     <include>com.google.code.gson:gson</include>
                                     <include>com.google.guava:guava</include>
@@ -46,12 +47,21 @@
 
     <repositories>
         <repository>
+            <id>overcast</id>
+            <url>https://repo.oc.tc/content/repositories/public</url>
+        </repository>
+        <repository>
             <id>cube-space</id>
             <url>http://nexus.cube-space.net/content/groups/public/</url>
         </repository>
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>com.sk89q</groupId>
+            <artifactId>command-framework-core</artifactId>
+            <version>0.5-SNAPSHOT</version>
+        </dependency>
         <dependency>
             <groupId>net.lingala.zip4j</groupId>
             <artifactId>zip4j</artifactId>
