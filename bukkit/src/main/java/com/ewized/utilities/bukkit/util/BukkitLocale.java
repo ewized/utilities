@@ -6,8 +6,6 @@ import org.bukkit.entity.Player;
 
 import java.lang.reflect.Method;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 @SuppressWarnings("unused")
 public abstract class BukkitLocale extends LocaleWrapper implements LocaleUtil {
     private Player player;
@@ -33,8 +31,6 @@ public abstract class BukkitLocale extends LocaleWrapper implements LocaleUtil {
 
     /** Translate to the specific locale with formatting */
     public String get(String key, Object... args) {
-        checkNotNull(player);
-
         return super.get(key, args);
     }
 }
