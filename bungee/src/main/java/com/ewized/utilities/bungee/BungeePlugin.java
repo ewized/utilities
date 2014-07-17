@@ -11,6 +11,7 @@ import com.sk89q.minecraft.util.commands.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import net.md_5.bungee.api.CommandSender;
+import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
@@ -29,8 +30,13 @@ import java.util.List;
 public class BungeePlugin extends Plugin implements CommandExecutor<CommandSender> {
     private static BungeePlugin inst;
     private final BungeeCommandsManager commands = new BungeeCommandsManager();
-    public boolean debug = Boolean.parseBoolean(System.getProperty("debug"));
-    public final LogUtil log = new LogUtil(getLogger(), debug);
+    public LogUtil log = new LogUtil(ProxyServer.getInstance().getLogger());
+    public boolean debug = log.isDebug();
+
+    /** Re-register the LogUtil after plugin been enabled */
+    public void onEnable() {
+        log.setLogger(getLogger());
+    }
 
     /** Get the instance of this plugin */
     private static BungeePlugin get() {
@@ -43,8 +49,7 @@ public class BungeePlugin extends Plugin implements CommandExecutor<CommandSende
 
     /** Set the new debug status of this plugin */
     public void setDebug(boolean debug) {
-        this.debug = debug;
-        this.log.setDebug(debug);
+        log.setDebug(debug);
     }
 
     // Command Stuff //

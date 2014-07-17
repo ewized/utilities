@@ -29,9 +29,9 @@ public class BukkitPlugin extends JavaPlugin {
     @Getter
     private final BukkitCommandsManager commands = new BukkitCommandsManager();
     @Getter
-    public boolean debug = Boolean.parseBoolean(System.getProperty("debug"));
+    public final LogUtil log = new LogUtil(getLogger());
     @Getter
-    public final LogUtil log = new LogUtil(getLogger(), debug);
+    public boolean debug = log.isDebug();
 
     /** Get the instance of this plugin */
     private static BukkitPlugin get() {
@@ -44,8 +44,7 @@ public class BukkitPlugin extends JavaPlugin {
 
     /** Set the new debug status of this plugin */
     public void setDebug(boolean debug) {
-        this.debug = debug;
-        this.log.setDebug(debug);
+        log.setDebug(debug);
     }
 
     // Command Stuff //
