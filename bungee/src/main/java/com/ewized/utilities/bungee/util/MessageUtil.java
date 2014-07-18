@@ -8,14 +8,13 @@ import net.md_5.bungee.chat.ComponentSerializer;
 
 @SuppressWarnings("unused")
 public class MessageUtil extends com.ewized.utilities.core.util.MessageUtil {
-
     /**
      * Sends out a broadcast message.
      * @param message The message to broadcast.
      */
-    public static void broadcast(String message) {
+    public static void broadcast(String message, Object... args) {
         for (ProxiedPlayer player : ProxyServer.getInstance().getPlayers()) {
-            player.sendMessage(makeMessage(message));
+            player.sendMessage(makeMessage(message, args));
         }
     }
 
@@ -34,7 +33,7 @@ public class MessageUtil extends com.ewized.utilities.core.util.MessageUtil {
      * @param message The message to broadcast.
      */
     public static void colorBroadcast(String message) {
-        broadcast(com.ewized.utilities.core.util.MessageUtil.replaceColors(message));
+        broadcast(replaceColors(message));
     }
 
     /**
@@ -42,8 +41,8 @@ public class MessageUtil extends com.ewized.utilities.core.util.MessageUtil {
      * @param message The message to translate.
      * @return The translated message.
      */
-    public static BaseComponent[] makeMessage(String message) {
-        return TextComponent.fromLegacyText(replaceColors(message));
+    public static BaseComponent[] makeMessage(String message, Object... args) {
+        return TextComponent.fromLegacyText(replaceColors(String.format(message, args)));
     }
 
     /**
@@ -76,8 +75,9 @@ public class MessageUtil extends com.ewized.utilities.core.util.MessageUtil {
         BaseComponent[] merged = new BaseComponent[first.length + second.length];
 
         // Merge the components.
-        for (int i = 0; i < first.length + second.length; i++)
+        for (int i = 0; i < first.length + second.length; i++) {
             merged[i] = i < first.length ? first[i] : second[i - first.length];
+        }
 
         return merged;
     }
