@@ -6,11 +6,8 @@ import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 @SuppressWarnings("unused")
 public abstract class BungeeLocale extends LocaleWrapper implements LocaleUtil {
-    private ProxiedPlayer player;
-
     /** Start creating locales for the specific player's locale */
     public BungeeLocale(ProxiedPlayer player) {
-        this.player = player;
         this.locale = player == null ? DEFAULT_LOCALE : player.getLocale().toString();
     }
 

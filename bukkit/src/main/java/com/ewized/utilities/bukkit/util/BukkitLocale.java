@@ -8,11 +8,8 @@ import java.lang.reflect.Field;
 
 @SuppressWarnings("unused")
 public abstract class BukkitLocale extends LocaleWrapper implements LocaleUtil {
-    private Player player;
-
     /** Start creating locales for the specific player's locale */
     public BukkitLocale(Player player) {
-        this.player = player;
         //this.locale = DEFAULT_LOCALE;
         //this.locale = player == null ? DEFAULT_LOCALE : player.getLocale();
 

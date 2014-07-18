@@ -1,14 +1,12 @@
 package com.ewized.utilities.core.message;
 
-import com.ewized.utilities.core.util.locale.LocaleManager;
+import com.ewized.utilities.core.util.locale.ClassLocaleManager;
 
-public class MessageManager extends LocaleManager {
+public class MessageManager extends ClassLocaleManager {
     private static MessageManager inst;
-    protected static final String LOCALE_PATH = "/com/ewized/utilities/locales/";
-    private static String[] codes = {"en_US", "en_PT", "pt_PT", "pt_BR"};
 
     private MessageManager() {
-        super(MessageManager.class);
+        super(MessageManager.class, "/com/ewized/utilities/locales/", "en_US", "en_PT", "pt_PT", "pt_BR");
     }
 
     public static MessageManager get() {
@@ -17,12 +15,5 @@ public class MessageManager extends LocaleManager {
         }
 
         return inst;
-    }
-
-    @Override
-    protected void loadLocales(String path) {
-        for (String locale : codes) {
-            loadLocale(locale, clazz.getResourceAsStream(LOCALE_PATH + locale + ".properties"));
-        }
     }
 }

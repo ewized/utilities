@@ -2,6 +2,7 @@ package com.ewized.utilities.core.util.locale;
 
 import com.google.common.base.Joiner;
 import lombok.Getter;
+import lombok.NonNull;
 
 import static com.ewized.utilities.core.util.MessageUtil.message;
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -15,7 +16,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public abstract class LocaleWrapper implements LocaleUtil {
     public static final String DEFAULT_LOCALE = "en_US";
-    protected LocaleManager localeManager;
+    @NonNull
+    protected AbstractLocaleManager localeManager;
     @Getter
     protected String locale;
 

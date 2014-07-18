@@ -1,15 +1,18 @@
 package com.ewized.utilities.core.util.locale;
 
+import com.google.common.base.Charsets;
 import lombok.Getter;
 import lombok.extern.java.Log;
 
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
-import com.google.common.base.Charsets;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -19,6 +22,8 @@ import static com.google.common.base.Preconditions.checkNotNull;
  * correctly.
  */
 @Log
+@Deprecated
+@SuppressWarnings("unused")
 public abstract class LocaleManager {
     @Getter
     private Map<String, Properties> locales = new ConcurrentHashMap<>();
