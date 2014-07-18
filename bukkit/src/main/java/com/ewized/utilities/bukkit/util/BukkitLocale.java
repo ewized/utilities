@@ -4,7 +4,7 @@ import com.ewized.utilities.core.util.locale.LocaleUtil;
 import com.ewized.utilities.core.util.locale.LocaleWrapper;
 import org.bukkit.entity.Player;
 
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
 
 @SuppressWarnings("unused")
 public abstract class BukkitLocale extends LocaleWrapper implements LocaleUtil {
@@ -18,12 +18,13 @@ public abstract class BukkitLocale extends LocaleWrapper implements LocaleUtil {
 
         try {
             if (player == null) {
-                throw new Exception();
+                this.locale = DEFAULT_LOCALE;
+                return;
             }
 
-            Method method = Player.class.getMethod("getLocale");
-            method.setAccessible(true);
-            this.locale = (String) method.invoke(player);
+            Field field = Player.class.getField("locale");
+            field.setAccessible(true);
+            this.locale = field.toString();
         } catch (Exception e) {
             this.locale = DEFAULT_LOCALE;
         }

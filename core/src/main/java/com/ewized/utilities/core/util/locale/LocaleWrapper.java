@@ -21,11 +21,13 @@ public abstract class LocaleWrapper implements LocaleUtil {
 
     /** Translate to the specific locale with formatting */
     public String get(String key, Object... args) {
-        checkNotNull(locale);
         checkNotNull(localeManager);
 
-        if (!localeManager.isLocale(locale)) {
+        if (localeManager.getLocales().size() == 0 || !localeManager.isLocale(DEFAULT_LOCALE)) {
             return "(" + locale + ") " + key + " " + Joiner.on(", ").join(args);
+        }
+        else if (!localeManager.isLocale(locale)) {
+            locale = DEFAULT_LOCALE;
         }
 
         return message(localeManager.getLocale(locale).getProperty(key, key), args);
