@@ -46,6 +46,15 @@ public class MessageUtil extends com.ewized.utilities.core.util.MessageUtil {
     }
 
     /**
+     * Translate a normal string to a BaseComponent.
+     * @param message The message to translate.
+     * @return The translated message.
+     */
+    public static BaseComponent[] makeMessage(String message) {
+        return makeMessage(message, new Object());
+    }
+
+    /**
      * Parse a message to be used.
      * @param message The message.
      * @return The parsed message.
