@@ -41,7 +41,7 @@ public class LogUtil {
             Level old = level;
             setLevel(Level.WARNING);
             log("DEBUG: " + MessageUtil.stripColors(message), args);
-            setLevel(level);
+            setLevel(old);
         }
     }
 
