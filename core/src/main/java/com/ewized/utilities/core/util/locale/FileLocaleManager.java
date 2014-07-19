@@ -1,5 +1,6 @@
 package com.ewized.utilities.core.util.locale;
 
+import com.ewized.utilities.core.util.LogUtil;
 import lombok.NoArgsConstructor;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -9,6 +10,7 @@ import java.io.FileInputStream;
 import static com.google.common.base.Preconditions.checkArgument;
 
 @NoArgsConstructor
+@SuppressWarnings("unused")
 public class FileLocaleManager extends AbstractLocaleManager {
     /**
      * Load the locales provided and use a File object as a base location.
@@ -26,8 +28,19 @@ public class FileLocaleManager extends AbstractLocaleManager {
      * @param locales The locales to use by default
      */
     @ParametersAreNonnullByDefault
-    public  FileLocaleManager(String path, String... locales) {
+    public FileLocaleManager(String path, String... locales) {
         super(path, locales);
+    }
+
+    /**
+     * Load the locales provided and use a File object as a base location.
+     * @param log The LogUtil to use when creating this locale manager.
+     * @param path The file path to use when getting the files.
+     * @param locales The locales to use by default.
+     */
+    @ParametersAreNonnullByDefault
+    public FileLocaleManager(LogUtil log, String path, String... locales) {
+        super(path, locales, log);
     }
 
     /** Load all the locales that are in the folder */

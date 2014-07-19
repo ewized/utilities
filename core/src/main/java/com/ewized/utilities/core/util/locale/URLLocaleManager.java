@@ -1,8 +1,10 @@
 package com.ewized.utilities.core.util.locale;
 
+import com.ewized.utilities.core.util.LogUtil;
 import com.google.gson.Gson;
 import lombok.NoArgsConstructor;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
@@ -18,6 +20,7 @@ public class URLLocaleManager extends AbstractLocaleManager {
      * @param url The url object the use.
      * @param locales The locale codes.
      */
+    @ParametersAreNonnullByDefault
     public URLLocaleManager(URL url, String... locales) {
         super(url.toString(), locales);
     }
@@ -27,8 +30,20 @@ public class URLLocaleManager extends AbstractLocaleManager {
      * @param path The url path ending with a slash.
      * @param locales The locale codes.
      */
+    @ParametersAreNonnullByDefault
     public URLLocaleManager(String path, String... locales) {
         super(path, locales);
+    }
+
+    /**
+     * Load the locales and set the LogUtil
+     * @param log The LogUtil to use.
+     * @param path The url path ending with a slash.
+     * @param locales The locale codes.
+     */
+    @ParametersAreNonnullByDefault
+    public URLLocaleManager(LogUtil log, String path, String... locales) {
+        super(path, locales, log);
     }
 
     /** Load all the locales from the url location. */

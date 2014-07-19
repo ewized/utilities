@@ -1,5 +1,6 @@
 package com.ewized.utilities.core.util.locale;
 
+import com.ewized.utilities.core.util.LogUtil;
 import lombok.NoArgsConstructor;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -7,6 +8,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 @NoArgsConstructor
+@SuppressWarnings("unused")
 public class ClassLocaleManager extends AbstractLocaleManager {
     private Class clazz;
 
@@ -35,6 +37,16 @@ public class ClassLocaleManager extends AbstractLocaleManager {
         loadLocales();
     }
 
+    /**
+     * Load the class files and provide a LogUtil
+     * @param log The LogUtil to use when creating the locale manager.
+     * @param path The path to use.
+     * @param locales The locale codes to use.
+     */
+    @ParametersAreNonnullByDefault
+    public ClassLocaleManager(LogUtil log, String path, String... locales) {
+        super(path, locales, log);
+    }
 
     /** Load all the locales that are in the folder */
     public void loadLocales() {
