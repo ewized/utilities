@@ -10,6 +10,7 @@ import java.net.URL;
 @NoArgsConstructor
 @SuppressWarnings("unused")
 public class URLLocaleManager extends AbstractLocaleManager {
+    public static final String LOCALES_JSON = "locales.json";
     private static final Gson gson = new Gson();
 
     /**
