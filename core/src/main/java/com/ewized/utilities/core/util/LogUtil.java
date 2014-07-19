@@ -48,11 +48,11 @@ public class LogUtil {
     /** Print out the stack trace */
     public void debug(Exception exception, boolean simple) {
         if (debug) {
-            debug(exception.getMessage());
+            debug(stripArgs(exception.getMessage()));
 
             if (!simple) {
                 for (StackTraceElement element : exception.getStackTrace()) {
-                    debug(element.toString());
+                    debug(stripArgs(element.toString()));
                 }
             }
         }
@@ -60,12 +60,17 @@ public class LogUtil {
 
     /** Print out the stack trace */
     public void log(Exception exception, boolean simple) {
-        log(exception.getMessage());
+        log(stripArgs(exception.getMessage()));
 
         if (!simple) {
             for (StackTraceElement element : exception.getStackTrace()) {
-                log(element.toString());
+                log(stripArgs(element.toString()));
             }
         }
+    }
+
+    /** Strip possible args from breaking things */
+    private String stripArgs(String message) {
+        return message.replaceAll("%([a-z]|[A-Z])", "");
     }
 }
