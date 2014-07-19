@@ -1,3 +1,13 @@
 package com.ewized.utilities.bungee;
 
-public class Utilities extends BungeePlugin {}
+import lombok.Getter;
+
+public class Utilities extends BungeePlugin {
+    @Getter
+    private static Utilities inst;
+
+    @Override
+    public void onLoad() {
+        inst = this;
+    }
+}

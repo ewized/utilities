@@ -1,3 +1,13 @@
 package com.ewized.utilities.bukkit;
 
-public class Utilities extends BukkitPlugin {}
+import lombok.Getter;
+
+public class Utilities extends BukkitPlugin {
+    @Getter
+    private static Utilities inst;
+
+    @Override
+    public void onLoad() {
+        inst = this;
+    }
+}
