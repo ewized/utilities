@@ -4,6 +4,7 @@ import com.ewized.utilities.bukkit.util.BukkitLocale;
 import com.ewized.utilities.bukkit.util.MessageUtil;
 import com.ewized.utilities.core.message.MessageManager;
 import com.ewized.utilities.core.util.LogUtil;
+import com.ewized.utilities.core.util.locale.URLLocaleManager;
 import com.sk89q.bukkit.util.BukkitCommandsManager;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
@@ -25,6 +26,7 @@ import java.util.List;
 @SuppressWarnings("unused")
 @NoArgsConstructor
 public class BukkitPlugin extends JavaPlugin {
+    private static final String LOCALE_URL = "https://git.year4000.net/year4000/locales/raw/master/com/ewized/utilities/locales/";
     private static BukkitPlugin inst;
     @Getter
     private final BukkitCommandsManager commands = new BukkitCommandsManager();
@@ -59,7 +61,10 @@ public class BukkitPlugin extends JavaPlugin {
         List<String> msg = new ArrayList<>();
 
         BukkitLocale locale = new BukkitLocale(sender instanceof Player ? (Player) sender : null) {{
-            localeManager = MessageManager.get();
+            localeManager = new URLLocaleManager(log, LOCALE_URL, URLLocaleManager.parseJson(LOCALE_URL + URLLocaleManager.LOCALES_JSON));
+            if (localeManager.getLocales().size() == 0) {
+                localeManager = MessageManager.get();
+            }
         }};
 
         try {

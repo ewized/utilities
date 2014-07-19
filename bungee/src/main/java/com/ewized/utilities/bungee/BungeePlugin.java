@@ -4,6 +4,7 @@ import com.ewized.utilities.bungee.util.BungeeLocale;
 import com.ewized.utilities.bungee.util.MessageUtil;
 import com.ewized.utilities.core.message.MessageManager;
 import com.ewized.utilities.core.util.LogUtil;
+import com.ewized.utilities.core.util.locale.URLLocaleManager;
 import com.sk89q.bungee.util.BungeeCommandsManager;
 import com.sk89q.bungee.util.CommandExecutor;
 import com.sk89q.bungee.util.CommandRegistration;
@@ -28,6 +29,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @SuppressWarnings("unused")
 public class BungeePlugin extends Plugin implements CommandExecutor<CommandSender> {
+    private static final String LOCALE_URL = "https://git.year4000.net/year4000/locales/raw/master/com/ewized/utilities/locales/";
     private static BungeePlugin inst;
     private final BungeeCommandsManager commands = new BungeeCommandsManager();
     public LogUtil log = new LogUtil(ProxyServer.getInstance().getLogger());
@@ -64,7 +66,10 @@ public class BungeePlugin extends Plugin implements CommandExecutor<CommandSende
         List<BaseComponent[]> msg = new ArrayList<>();
 
         BungeeLocale locale = new BungeeLocale(sender instanceof ProxiedPlayer ? (ProxiedPlayer) sender : null) {{
-            localeManager = MessageManager.get();
+            localeManager = new URLLocaleManager(log, LOCALE_URL, URLLocaleManager.parseJson(LOCALE_URL + URLLocaleManager.LOCALES_JSON));
+            if (localeManager.getLocales().size() == 0) {
+                localeManager = MessageManager.get();
+            }
         }};
 
         try {
