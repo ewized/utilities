@@ -32,7 +32,7 @@ public abstract class LocaleWrapper implements LocaleUtil {
             locale = DEFAULT_LOCALE;
         }
 
-        return message(localeManager.getLocale(locale).getProperty(key, key + " " + Joiner.on(", ").join(args)), args);
+        return message(localeManager.getLocale(locale).getProperty(key, key + (args.length > 0 ? " " + Joiner.on(", ").join(args) : "")), args);
     }
 
 }
