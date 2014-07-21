@@ -37,11 +37,11 @@
     <distributionManagement>
         <repository>
             <id>year4000-deployment</id>
-            <url>http://repo.year4000.net/content/repositories/releases/</url>
+            <url>https://repo.year4000.net/content/repositories/releases/</url>
         </repository>
         <snapshotRepository>
             <id>year4000-deployment</id>
-            <url>http://repo.year4000.net/content/repositories/snapshots/</url>
+            <url>https://repo.year4000.net/content/repositories/snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
