@@ -1,0 +1,24 @@
+package com.ewized.utilities.core.util;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import lombok.extern.java.Log;
+import org.junit.Test;
+
+import java.io.IOException;
+import java.net.InetSocketAddress;
+
+@Log
+public class PingerTest {
+    private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    @Test
+    public void ping() throws IOException {
+        // Year4000 Network
+        InetSocketAddress year4000 = new InetSocketAddress("mc.year4000.net", 25565);
+
+        Pinger ping = new Pinger(year4000);
+
+        log.info(gson.toJson(ping.fetchData(), Pinger.StatusResponse.class));
+    }
+}

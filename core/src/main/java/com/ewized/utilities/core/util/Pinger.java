@@ -11,8 +11,11 @@ import java.net.Socket;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 /**
- * @author zh32 <zh32 at zh32.de> modify by ewized to add lombok support.
+ * @author zh32 <zh32 at zh32.de> modify by ewized to add lombok support
+ * and update the code to latest java standards.
  */
 @Data
 @AllArgsConstructor
@@ -20,8 +23,8 @@ import java.util.concurrent.TimeUnit;
 @SuppressWarnings("unused")
 public class Pinger {
     public static final int TIME_OUT = (int) TimeUnit.SECONDS.toMillis(5);
+    private static final Gson gson = new Gson();
     private InetSocketAddress host;
-    private final Gson gson = new Gson();
 
     public int readVarInt(DataInputStream in) throws IOException {
         int i = 0;
@@ -48,90 +51,71 @@ public class Pinger {
     }
 
     public StatusResponse fetchData() throws IOException {
+        try (
+            Socket socket = new Socket() {{
+                setSoTimeout(TIME_OUT);
+                connect(host, TIME_OUT);
+            }};
+            OutputStream outputStream = socket.getOutputStream();
+            DataOutputStream dataOutputStream = new DataOutputStream(outputStream);
+            InputStream inputStream = socket.getInputStream();
+            InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+            ByteArrayOutputStream b = new ByteArrayOutputStream();
+            DataOutputStream handshake = new DataOutputStream(b);
+            DataInputStream dataInputStream = new DataInputStream(inputStream)
+        ) {
+            handshake.writeByte(0x00); //packet id for handshake
+            writeVarInt(handshake, 4); //protocol version
+            writeVarInt(handshake, host.getHostString().length()); //host length
+            handshake.writeBytes(host.getHostString()); //host string
+            handshake.writeShort(host.getPort()); //port
+            writeVarInt(handshake, 1); //state (1 for handshake)
 
-        Socket socket = new Socket();
-        OutputStream outputStream;
-        DataOutputStream dataOutputStream;
-        InputStream inputStream;
-        InputStreamReader inputStreamReader;
+            writeVarInt(dataOutputStream, b.size()); //prepend size
+            dataOutputStream.write(b.toByteArray()); //write handshake packet
 
-        socket.setSoTimeout(TIME_OUT);
+            dataOutputStream.writeByte(0x01); //size is only 1
+            dataOutputStream.writeByte(0x00); //packet id for ping
 
-        socket.connect(host, TIME_OUT);
+            int size = readVarInt(dataInputStream); //size of packet
+            int id = readVarInt(dataInputStream); //packet id
 
-        outputStream = socket.getOutputStream();
-        dataOutputStream = new DataOutputStream(outputStream);
+            checkArgument(id != -1, "Premature end of stream.");
 
-        inputStream = socket.getInputStream();
-        inputStreamReader = new InputStreamReader(inputStream);
+            //we want a status response
+            checkArgument(id == 0x00, "Invalid packetID");
 
-        ByteArrayOutputStream b = new ByteArrayOutputStream();
-        DataOutputStream handshake = new DataOutputStream(b);
-        handshake.writeByte(0x00); //packet id for handshake
-        writeVarInt(handshake, 4); //protocol version
-        writeVarInt(handshake, this.host.getHostString().length()); //host length
-        handshake.writeBytes(this.host.getHostString()); //host string
-        handshake.writeShort(host.getPort()); //port
-        writeVarInt(handshake, 1); //state (1 for handshake)
+            int length = readVarInt(dataInputStream); //length of json string
 
-        writeVarInt(dataOutputStream, b.size()); //prepend size
-        dataOutputStream.write(b.toByteArray()); //write handshake packet
+            checkArgument(length != -1, "Premature end of stream.");
 
+            checkArgument(length != 0, "Invalid string length.");
 
-        dataOutputStream.writeByte(0x01); //size is only 1
-        dataOutputStream.writeByte(0x00); //packet id for ping
-        DataInputStream dataInputStream = new DataInputStream(inputStream);
-        int size = readVarInt(dataInputStream); //size of packet
-        int id = readVarInt(dataInputStream); //packet id
+            byte[] in = new byte[length];
+            dataInputStream.readFully(in);  //read json string
+            String json = new String(in);
 
-        if (id == -1) {
-            throw new IOException("Premature end of stream.");
+            long now = System.currentTimeMillis();
+            dataOutputStream.writeByte(0x09); //size of packet
+            dataOutputStream.writeByte(0x01); //0x01 for ping
+            dataOutputStream.writeLong(now); //time!?
+
+            readVarInt(dataInputStream);
+            id = readVarInt(dataInputStream);
+
+            checkArgument(id != -1, "Premature end of stream.");
+
+            checkArgument(id == 0x01, "Invalid packetID");
+
+            long pingtime = dataInputStream.readLong(); //read response
+
+            StatusResponse response = gson.fromJson(json, StatusResponse.class);
+            response.setTime((int) (pingtime));
+
+            return response;
+        } catch (IllegalStateException e) {
+            throw new IOException(e.getMessage());
         }
-
-        if (id != 0x00) { //we want a status response
-            throw new IOException("Invalid packetID");
-        }
-        int length = readVarInt(dataInputStream); //length of json string
-
-        if (length == -1) {
-            throw new IOException("Premature end of stream.");
-        }
-
-        if (length == 0) {
-            throw new IOException("Invalid string length.");
-        }
-
-        byte[] in = new byte[length];
-        dataInputStream.readFully(in);  //read json string
-        String json = new String(in);
-
-
-        long now = System.currentTimeMillis();
-        dataOutputStream.writeByte(0x09); //size of packet
-        dataOutputStream.writeByte(0x01); //0x01 for ping
-        dataOutputStream.writeLong(now); //time!?
-
-        readVarInt(dataInputStream);
-        id = readVarInt(dataInputStream);
-        if (id == -1) {
-            throw new IOException("Premature end of stream.");
-        }
-
-        if (id != 0x01) {
-            throw new IOException("Invalid packetID");
-        }
-        long pingtime = dataInputStream.readLong(); //read response
-
-        StatusResponse response = gson.fromJson(json, StatusResponse.class);
-        response.setTime((int) (now - pingtime));
-
-        dataOutputStream.close();
-        outputStream.close();
-        inputStreamReader.close();
-        inputStream.close();
-        socket.close();
-
-        return response;
     }
 
     @Data
