@@ -9,6 +9,7 @@ import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author zh32 <zh32 at zh32.de> modify by ewized to add lombok support.
@@ -18,8 +19,8 @@ import java.util.List;
 @NoArgsConstructor
 @SuppressWarnings("unused")
 public class Pinger {
+    public static final int TIME_OUT = (int) TimeUnit.SECONDS.toMillis(5);
     private InetSocketAddress host;
-    private int timeout = 500;
     private final Gson gson = new Gson();
 
     public int readVarInt(DataInputStream in) throws IOException {
@@ -54,9 +55,9 @@ public class Pinger {
         InputStream inputStream;
         InputStreamReader inputStreamReader;
 
-        socket.setSoTimeout(this.timeout);
+        socket.setSoTimeout(TIME_OUT);
 
-        socket.connect(host, timeout);
+        socket.connect(host, TIME_OUT);
 
         outputStream = socket.getOutputStream();
         dataOutputStream = new DataOutputStream(outputStream);
