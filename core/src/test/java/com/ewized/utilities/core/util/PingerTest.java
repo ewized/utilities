@@ -18,7 +18,7 @@ public class PingerTest {
         // Year4000 Network
         InetSocketAddress year4000 = new InetSocketAddress("mc.year4000.net", 25565);
 
-        Pinger ping = new Pinger(year4000);
+        Pinger ping = new Pinger(year4000, Pinger.TIME_OUT);
 
         logutil.debug(gson.toJson(ping.fetchData(), Pinger.StatusResponse.class));
     }

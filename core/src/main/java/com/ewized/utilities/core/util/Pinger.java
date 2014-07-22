@@ -25,6 +25,7 @@ public class Pinger {
     public static final int TIME_OUT = (int) TimeUnit.SECONDS.toMillis(5);
     private static final Gson gson = new Gson();
     private InetSocketAddress host;
+    private int timeout = TIME_OUT;
 
     public int readVarInt(DataInputStream in) throws IOException {
         int i = 0;
