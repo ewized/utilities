@@ -36,6 +36,8 @@
                                     <include>com.google.guava:guava</include>
                                     <include>joda-time:joda-time</include>
                                     <include>net.lingala.zip4j:zip4j</include>
+                                    <include>org.eclipse.jetty:*</include>
+                                    <include>javax.servlet:javax.servlet-api</include>
                                 </includes>
                             </artifactSet>
                         </configuration>
@@ -57,6 +59,11 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-server</artifactId>
+            <version>9.2.1.v20140609</version>
+        </dependency>
         <dependency>
             <groupId>com.sk89q</groupId>
             <artifactId>command-framework-core</artifactId>
