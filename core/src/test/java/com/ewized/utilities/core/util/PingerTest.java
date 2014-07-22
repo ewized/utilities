@@ -11,6 +11,7 @@ import java.net.InetSocketAddress;
 @Log
 public class PingerTest {
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private static final LogUtil logutil = new LogUtil(log, Boolean.parseBoolean(System.getProperty("test.debug")));
 
     @Test
     public void ping() throws IOException {
@@ -19,6 +20,6 @@ public class PingerTest {
 
         Pinger ping = new Pinger(year4000);
 
-        log.info(gson.toJson(ping.fetchData(), Pinger.StatusResponse.class));
+        logutil.debug(gson.toJson(ping.fetchData(), Pinger.StatusResponse.class));
     }
 }
