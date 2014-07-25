@@ -50,8 +50,12 @@ public class ClassLocaleManager extends AbstractLocaleManager {
 
     /** Load all the locales that are in the folder */
     public void loadLocales() {
-        for (String locale : codes) {
-            loadLocale(locale, clazz.getResourceAsStream(path + locale + EXTENSION));
+        try {
+            for (String locale : codes) {
+                loadLocale(locale, clazz.getResourceAsStream(path + locale + EXTENSION));
+            }
+        } catch (NullPointerException e) {
+            log.log(e, true);
         }
     }
 }
