@@ -8,8 +8,8 @@ import com.ewized.utilities.core.util.LogUtil;
 import com.sk89q.bukkit.util.BukkitCommandsManager;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
+import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -24,23 +24,19 @@ import java.util.List;
  * quick and creation of common tasks.
  */
 @SuppressWarnings("unused")
-@NoArgsConstructor
 public class BukkitPlugin extends JavaPlugin {
+    @Getter(AccessLevel.PRIVATE)
     private static BukkitPlugin inst;
     @Getter
     private final BukkitCommandsManager commands = new BukkitCommandsManager();
     @Getter
-    public final LogUtil log = new LogUtil(getLogger());
+    public LogUtil log = new LogUtil(getLogger());
     @Getter
     public boolean debug = log.isDebug();
 
-    /** Get the instance of this plugin */
-    private static BukkitPlugin get() {
-        if (inst == null) {
-            inst = new BukkitPlugin();
-        }
-
-        return inst;
+    /** Load this instance */
+    public BukkitPlugin() {
+        inst = this;
     }
 
     /** Set the new debug status of this plugin */
@@ -102,21 +98,21 @@ public class BukkitPlugin extends JavaPlugin {
 
     /** Logs a message to the console */
     public static void log(String message, Object... args) {
-        get().log.debug(message, args);
+        getInst().log.debug(message, args);
     }
 
     /** Logs a debug message to the console */
     public static void debug(String message, Object... args) {
-        get().log.debug(message, args);
+        getInst().log.debug(message, args);
     }
 
     /** Print out the stack trace */
     public static void debug(Exception e, boolean simple) {
-        get().log.debug(e, simple);
+        getInst().log.debug(e, simple);
     }
 
     /** Print out the stack trace */
     public static void log(Exception e, boolean simple) {
-        get().log.log(e, simple);
+        getInst().log.log(e, simple);
     }
 }

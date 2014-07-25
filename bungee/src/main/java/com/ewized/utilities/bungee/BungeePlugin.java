@@ -9,8 +9,10 @@ import com.sk89q.bungee.util.BungeeCommandsManager;
 import com.sk89q.bungee.util.CommandExecutor;
 import com.sk89q.bungee.util.CommandRegistration;
 import com.sk89q.minecraft.util.commands.*;
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -29,23 +31,21 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = false)
 @SuppressWarnings("unused")
 public class BungeePlugin extends Plugin implements CommandExecutor<CommandSender> {
+    @Getter(AccessLevel.PRIVATE)
     private static BungeePlugin inst;
     private final BungeeCommandsManager commands = new BungeeCommandsManager();
     public LogUtil log = new LogUtil(ProxyServer.getInstance().getLogger());
     public boolean debug = log.isDebug();
 
-    /** Re-register the LogUtil after plugin been enabled */
-    public void onEnable() {
-        log.setLogger(getLogger());
+    /** Load this instance */
+    public BungeePlugin() {
+        inst = this;
     }
 
-    /** Get the instance of this plugin */
-    private static BungeePlugin get() {
-        if (inst == null) {
-            inst = new BungeePlugin();
-        }
-
-        return inst;
+    /** Re-register the LogUtil after plugin been enabled */
+    @Override
+    public void onEnable() {
+        log.setLogger(getLogger());
     }
 
     /** Set the new debug status of this plugin */
@@ -106,21 +106,21 @@ public class BungeePlugin extends Plugin implements CommandExecutor<CommandSende
 
     /** Logs a message to the console */
     public static void log(String message, Object... args) {
-        get().log.debug(message, args);
+        getInst().log.debug(message, args);
     }
 
     /** Logs a debug message to the console */
     public static void debug(String message, Object... args) {
-        get().log.debug(message, args);
+        getInst().log.debug(message, args);
     }
 
     /** Print out the stack trace */
     public static void debug(Exception e, boolean simple) {
-        get().log.debug(e, simple);
+        getInst().log.debug(e, simple);
     }
 
     /** Print out the stack trace */
     public static void log(Exception e, boolean simple) {
-        get().log.log(e, simple);
+        getInst().log.log(e, simple);
     }
 }
