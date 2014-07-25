@@ -48,7 +48,12 @@ public class LogUtil {
     /** Print out the stack trace */
     public void debug(Exception exception, boolean simple) {
         if (debug) {
-            debug(stripArgs(exception.getMessage()));
+            if (exception.getMessage() != null) {
+                debug(stripArgs(exception.getMessage()));
+            }
+            else {
+                debug(exception.getClass().getName());
+            }
 
             if (!simple) {
                 for (StackTraceElement element : exception.getStackTrace()) {
@@ -60,7 +65,12 @@ public class LogUtil {
 
     /** Print out the stack trace */
     public void log(Exception exception, boolean simple) {
-        log(stripArgs(exception.getMessage()));
+        if (exception.getMessage() != null) {
+            log(stripArgs(exception.getMessage()));
+        }
+        else {
+            log(exception.getClass().getName());
+        }
 
         if (!simple) {
             for (StackTraceElement element : exception.getStackTrace()) {
