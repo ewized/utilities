@@ -8,6 +8,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLConnection;
 
 @NoArgsConstructor
 @SuppressWarnings("unused")
@@ -50,9 +51,14 @@ public class URLLocaleManager extends AbstractLocaleManager {
     protected void loadLocales() {
         for (String code : codes) {
             try {
-                URL uri = new URL(path + code + EXTENSION);
+                URLConnection url = new URL(path + code + EXTENSION).openConnection();
+                url.setUseCaches(false);
+                url.setDoInput(true);
+                url.setDoInput(true);
+                url.setRequestProperty("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/36.0.1985.125 Safari/537.36");
+                url.connect();
 
-                loadLocale(code, uri.openStream());
+                loadLocale(code, url.getInputStream());
             } catch (Exception e) {
                 log.log(e, false);
             }
@@ -66,7 +72,11 @@ public class URLLocaleManager extends AbstractLocaleManager {
      */
     public static String[] parseJson(String url) {
         try {
-            return gson.fromJson(new InputStreamReader(new URL(url).openStream()), String[].class);
+            URLConnection con = new URL(url).openConnection();
+            con.setRequestProperty("Content-Type", "application/json");
+            con.connect();
+
+            return gson.fromJson(new InputStreamReader(con.getInputStream()), String[].class);
         } catch (IOException e) {
             return new String[] {DEFAULT_LOCALE};
         }
