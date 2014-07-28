@@ -60,7 +60,7 @@ public class URLLocaleManager extends AbstractLocaleManager {
 
                 loadLocale(code, url.getInputStream());
             } catch (Exception e) {
-                log.log(e, false);
+                log.log(e, true);
             }
         }
     }
