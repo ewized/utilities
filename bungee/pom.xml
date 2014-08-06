@@ -39,7 +39,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>2.2</version>
+                <version>2.3</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -53,6 +53,16 @@
                                     <include>com.ewized.utilities:core</include>
                                 </includes>
                             </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>com.sk89q.minecraft.util</pattern>
+                                    <shadedPattern>com.ewized.utilities.bungee</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.sk89q.bungee.util</pattern>
+                                    <shadedPattern>com.ewized.utilities.bungee.commands</shadedPattern>
+                                </relocation>
+                            </relocations>
                         </configuration>
                     </execution>
                 </executions>
@@ -95,11 +105,13 @@
             <groupId>com.sk89q</groupId>
             <artifactId>command-framework-bungee</artifactId>
             <version>0.5-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>net.md-5</groupId>
             <artifactId>bungeecord-api</artifactId>
             <version>LATEST</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.ewized.utilities</groupId>
@@ -107,5 +119,4 @@
             <version>${project.version}</version>
         </dependency>
     </dependencies>
-
 </project>

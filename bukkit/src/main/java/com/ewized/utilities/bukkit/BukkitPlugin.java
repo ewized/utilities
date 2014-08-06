@@ -1,10 +1,7 @@
 package com.ewized.utilities.bukkit;
 
-import com.ewized.utilities.bukkit.message.MessageManager;
-import com.ewized.utilities.bukkit.message.URLMessageManager;
-import com.ewized.utilities.bukkit.util.BukkitLocale;
-import com.ewized.utilities.bukkit.util.MessageUtil;
-import com.ewized.utilities.core.util.LogUtil;
+import com.ewized.utilities.LogUtil;
+import com.ewized.utilities.bukkit.locale.MessageLocale;
 import com.sk89q.bukkit.util.BukkitCommandsManager;
 import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
@@ -12,7 +9,6 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -55,12 +51,7 @@ public class BukkitPlugin extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command cmd, String commandName, String[] args) {
         List<String> msg = new ArrayList<>();
 
-        BukkitLocale locale = new BukkitLocale(sender instanceof Player ? (Player) sender : null) {{
-            localeManager = URLMessageManager.get();
-            if (localeManager.getLocales().size() == 0) {
-                localeManager = MessageManager.get();
-            }
-        }};
+        BukkitLocale locale = new MessageLocale(sender);
 
         try {
             commands.execute(cmd.getName(), args, sender, sender);

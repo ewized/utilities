@@ -1,10 +1,7 @@
 package com.ewized.utilities.bungee;
 
-import com.ewized.utilities.bungee.message.MessageManager;
-import com.ewized.utilities.bungee.message.URLMessageManager;
-import com.ewized.utilities.bungee.util.BungeeLocale;
-import com.ewized.utilities.bungee.util.MessageUtil;
-import com.ewized.utilities.core.util.LogUtil;
+import com.ewized.utilities.LogUtil;
+import com.ewized.utilities.bungee.locale.MessageLocale;
 import com.sk89q.bungee.util.BungeeCommandsManager;
 import com.sk89q.bungee.util.CommandExecutor;
 import com.sk89q.bungee.util.CommandRegistration;
@@ -16,7 +13,6 @@ import lombok.Getter;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
 import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 
 import java.util.ArrayList;
@@ -64,12 +60,7 @@ public class BungeePlugin extends Plugin implements CommandExecutor<CommandSende
     public void onCommand(CommandSender sender, String commandName, String[] args) {
         List<BaseComponent[]> msg = new ArrayList<>();
 
-        BungeeLocale locale = new BungeeLocale(sender instanceof ProxiedPlayer ? (ProxiedPlayer) sender : null) {{
-            localeManager = URLMessageManager.get();
-            if (localeManager.getLocales().size() == 0) {
-                localeManager = MessageManager.get();
-            }
-        }};
+        BungeeLocale locale = new MessageLocale(sender);
 
         try {
             commands.execute(commandName, args, sender, sender);
