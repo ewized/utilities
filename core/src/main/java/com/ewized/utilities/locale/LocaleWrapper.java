@@ -1,5 +1,6 @@
 package com.ewized.utilities.locale;
 
+import com.ewized.utilities.MessageUtil;
 import com.google.common.base.Joiner;
 import lombok.Getter;
 import lombok.NonNull;
@@ -31,7 +32,7 @@ public abstract class LocaleWrapper implements LocaleUtil {
             locale = DEFAULT_LOCALE;
         }
 
-        return String.format(localeManager.getLocale(locale).getProperty(key, key + (args.length > 0 ? " " + Joiner.on(", ").join(args) : "")), args);
+        return MessageUtil.replaceColors(String.format(localeManager.getLocale(locale).getProperty(key, key + (args.length > 0 ? " " + Joiner.on(", ").join(args) : "")), args));
     }
 
 }
