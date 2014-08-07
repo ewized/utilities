@@ -51,7 +51,7 @@ public class BukkitPlugin extends JavaPlugin {
     public boolean onCommand(CommandSender sender, Command cmd, String commandName, String[] args) {
         List<String> msg = new ArrayList<>();
 
-        BukkitLocale locale = new MessageLocale(sender);
+        MessageLocale locale = new MessageLocale(sender);
 
         try {
             commands.execute(cmd.getName(), args, sender, sender);

@@ -101,7 +101,7 @@ public final class MessageUtil extends com.ewized.utilities.MessageUtil {
      * @return The merged
      */
     public static BaseComponent[] merge(String first, String second) {
-        return merge(makeMessage(first), makeMessage(second));
+        return merge(makeMessage(first), message(second));
     }
 
     /**
@@ -111,7 +111,7 @@ public final class MessageUtil extends com.ewized.utilities.MessageUtil {
      * @return The merged
      */
     public static BaseComponent[] merge(BaseComponent[] first, String second) {
-        return merge(first, makeMessage(second));
+        return merge(first, message(second));
     }
 
     /**
@@ -121,6 +121,6 @@ public final class MessageUtil extends com.ewized.utilities.MessageUtil {
      * @return The merged
      */
     public static BaseComponent[] merge(String first, BaseComponent[] second) {
-        return merge(makeMessage(first), second);
+        return merge(message(first), second);
     }
 }

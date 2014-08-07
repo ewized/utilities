@@ -1,5 +1,7 @@
 package com.ewized.utilities;
 
+import com.google.common.annotations.Beta;
+
 @SuppressWarnings("unused")
 public abstract class MessageUtil {
     /**
@@ -43,6 +45,7 @@ public abstract class MessageUtil {
      * @param message The message to be translated.
      * @return The translated message.
      */
+    @Beta
     public static String endOfLine(String message) {
         return message.replaceAll("\\n", "\n");
     }

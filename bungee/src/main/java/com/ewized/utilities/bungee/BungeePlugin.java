@@ -60,27 +60,27 @@ public class BungeePlugin extends Plugin implements CommandExecutor<CommandSende
     public void onCommand(CommandSender sender, String commandName, String[] args) {
         List<BaseComponent[]> msg = new ArrayList<>();
 
-        BungeeLocale locale = new MessageLocale(sender);
+        MessageLocale locale = new MessageLocale(sender);
 
         try {
             commands.execute(commandName, args, sender, sender);
         } catch (CommandPermissionsException e) {
-            msg.add(MessageUtil.makeMessage(locale.get("error.cmd.permission")));
+            msg.add(MessageUtil.message(locale.get("error.cmd.permission")));
         } catch (MissingNestedCommandException e) {
-            msg.add(MessageUtil.makeMessage(locale.get("error.cmd.usage", e.getUsage())));
+            msg.add(MessageUtil.message(locale.get("error.cmd.usage", e.getUsage())));
         } catch (CommandUsageException e) {
-            msg.add(MessageUtil.makeMessage("&c" + e.getMessage()));
-            msg.add(MessageUtil.makeMessage(locale.get("error.cmd.usage", e.getUsage())));
+            msg.add(MessageUtil.message("&c" + e.getMessage().replaceAll(":", "&7:&e")));
+            msg.add(MessageUtil.message(locale.get("error.cmd.usage", e.getUsage())));
         } catch (WrappedCommandException e) {
             if (e.getCause() instanceof NumberFormatException) {
-                msg.add(MessageUtil.makeMessage(locale.get("error.cmd.number")));
+                msg.add(MessageUtil.message(locale.get("error.cmd.number")));
             }
             else {
-                msg.add(MessageUtil.makeMessage(locale.get("error.cmd.error")));
+                msg.add(MessageUtil.message(locale.get("error.cmd.error")));
                 e.printStackTrace();
             }
         } catch (CommandException e) {
-            msg.add(MessageUtil.makeMessage("&c" + e.getMessage()));
+            msg.add(MessageUtil.message("&c" + e.getMessage()));
         } finally {
             Iterator<BaseComponent[]> line = msg.listIterator();
 
