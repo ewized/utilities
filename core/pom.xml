@@ -30,7 +30,6 @@
                         <configuration>
                             <artifactSet>
                                 <includes>
-                                    <include>com.sk89q:command-framework-core</include>
                                     <include>net.cubespace:Yamler-Core</include>
                                     <include>com.google.code.gson:gson</include>
                                     <include>com.google.guava:guava</include>

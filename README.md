@@ -1,5 +1,6 @@
 Utilities
 =========
+
 Utilities is a collection of API's to make coding faster an simpler.
 
 Shaded Projects
@@ -9,8 +10,8 @@ This project contains other projects that has been shaded in to the final jar ar
 
 - Google's Guava [code.google.com/p/guava-libraries](https://code.google.com/p/guava-libraries/)
 - Google's Gson [code.google.com/p/google-gson](https://code.google.com/p/google-gson/)
-- CubeSpace's Yamler (Modified) [github.com/Cube-Space/Yamler](https://github.com/Cube-Space/Yamler)
-- sk89q's Command Framework (Modified) [github.com/Cube-Space/Yamler](https://github.com/Cube-Space/Yamler)
+- CubeSpace's Yamler (Modified) [github.com/Cube-Space/Yamler](https://github.com/Cube-Space/Yamler/)
+- sk89q's Command Framework (Modified) [github.com/sk89q/WorldEdit](https://github.com/sk89q/WorldEdit/)
 
 License
 -------
