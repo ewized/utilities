@@ -7,6 +7,7 @@ import com.sk89q.bukkit.util.CommandsManagerRegistration;
 import com.sk89q.minecraft.util.commands.*;
 import lombok.AccessLevel;
 import lombok.Getter;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -56,28 +57,30 @@ public class BukkitPlugin extends JavaPlugin {
         try {
             commands.execute(cmd.getName(), args, sender, sender);
         } catch (CommandPermissionsException e) {
-            msg.add(MessageUtil.message(locale.get("error.cmd.permission")));
+            msg.add(locale.get("error.cmd.permission"));
         } catch (MissingNestedCommandException e) {
-            msg.add(MessageUtil.message(locale.get("error.cmd.usage", e.getUsage())));
+            msg.add(locale.get("error.cmd.usage", e.getUsage()));
         } catch (CommandUsageException e) {
-            msg.add(MessageUtil.message("&c " + e.getMessage()));
-            msg.add(MessageUtil.message(locale.get("error.cmd.usage", e.getUsage())));
+            msg.add(ChatColor.RED + e.getMessage());
+            msg.add(locale.get("error.cmd.usage", e.getUsage()));
         } catch (WrappedCommandException e) {
             if (e.getCause() instanceof NumberFormatException) {
-                msg.add(MessageUtil.message(locale.get("error.cmd.number")));
+                msg.add(locale.get("error.cmd.number"));
             }
             else {
-                msg.add(MessageUtil.message(locale.get("error.cmd.error")));
+                msg.add(locale.get("error.cmd.error"));
                 e.printStackTrace();
             }
         } catch (CommandException e) {
-            msg.add(MessageUtil.message("&c" + e.getMessage()));
+            msg.add(ChatColor.RED + e.getMessage());
         } finally {
             Iterator<String> line = msg.listIterator();
+
             if (line.hasNext()) {
-                sender.sendMessage(MessageUtil.message(" &7[&e!&7] ", line.next()));
+                sender.sendMessage(MessageUtil.message(" &7[&e!&7] &e") + line.next());
+
                 while (line.hasNext()) {
-                    sender.sendMessage(MessageUtil.message(line.next()));
+                    sender.sendMessage(line.next());
                 }
             }
         }

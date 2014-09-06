@@ -69,7 +69,7 @@ public class BungeePlugin extends Plugin implements CommandExecutor<CommandSende
         } catch (MissingNestedCommandException e) {
             msg.add(MessageUtil.message(locale.get("error.cmd.usage", e.getUsage())));
         } catch (CommandUsageException e) {
-            msg.add(MessageUtil.message("&c" + e.getMessage().replaceAll(":", "&7:&e")));
+            msg.add(MessageUtil.message(ChatColor.RED + e.getMessage().replaceAll(":", "&7:&e")));
             msg.add(MessageUtil.message(locale.get("error.cmd.usage", e.getUsage())));
         } catch (WrappedCommandException e) {
             if (e.getCause() instanceof NumberFormatException) {
@@ -80,12 +80,13 @@ public class BungeePlugin extends Plugin implements CommandExecutor<CommandSende
                 e.printStackTrace();
             }
         } catch (CommandException e) {
-            msg.add(MessageUtil.message("&c" + e.getMessage()));
+            msg.add(MessageUtil.message(ChatColor.RED + e.getMessage()));
         } finally {
             Iterator<BaseComponent[]> line = msg.listIterator();
 
             if (line.hasNext()) {
                 sender.sendMessage(MessageUtil.merge(" &7[&e!&7] ", line.next()));
+
                 while (line.hasNext()) {
                     sender.sendMessage(line.next());
                 }
