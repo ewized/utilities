@@ -29,6 +29,7 @@
     </licenses>
 
     <modules>
+        <module>yamler</module>
         <module>core</module>
         <module>bukkit</module>
         <module>bungee</module>
